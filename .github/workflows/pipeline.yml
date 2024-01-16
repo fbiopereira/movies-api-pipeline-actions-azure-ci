@@ -26,10 +26,8 @@ jobs:
         with:
           context: .    
           load: true       
-          tags: 
-            fbiopereira/movies-api-fiap:latest
-            fbiopereira/movies-api-fiap:0.0.1
-            fbiopereira/movies-api-fiap:0.0.1-${{ github.sha }}
-            
+          tags: fbiopereira/movies-api-fiap:latest
+           
+
             
           
