@@ -24,7 +24,6 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/movies-api-fiap
 
           tags: 
-            type=schedule
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
