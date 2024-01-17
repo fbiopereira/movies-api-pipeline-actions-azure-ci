@@ -4,29 +4,32 @@ on:
   push:
     branches: 
       - "*/*" 
-  pull_request:
-    branches: 
-      - "main" 
-
+  
 jobs:
-  docker:
+  CI:
     runs-on: ubuntu-latest
+  
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4    
+        uses: actions/checkout@v4.1.1    
      
       - name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.0.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}   
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
+      - name: Build and push docker image
+        uses: docker/build-push-action@v5.1.0
         with:
-          context: .    
-          load: true       
-          tags: fbiopereira/movies-api-fiap:latest
+          context: .
+          file: Dockerfile
+          push: true       
+          tags: 
+            ${{ secrets.DOCKERHUB_USERNAME }}/movies-api-pos-tech-fiap:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/movies-api-pos-tech-fiap:v1
+           
+            
            
 
             
