@@ -26,6 +26,9 @@ jobs:
         uses: docker/build-push-action@v5.1.0
         with:
           context: .
+          build-args: |
+            "APP_VERSION=${{env.IMAGE_VERSION}}"
+            
           file: Dockerfile
           push: true       
           tags: |            
