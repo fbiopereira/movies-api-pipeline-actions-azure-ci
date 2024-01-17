@@ -5,7 +5,7 @@ on:
     branches: 
       - "*/*" 
 env:
-  IMAGE_NAME_LATEST: fbiopereira/movies-api-pos-tech-fiap:latest
+  IMAGE_NAME_LATEST: 'fbiopereira/movies-api-pos-tech-fiap:latest'
   IMAGE_NAME_VERSION: 'fbiopereira/movies-api-pos-tech-fiap:${{github.sha}}'
 
 jobs:
@@ -19,8 +19,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3.0.0
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}   
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}   
 
       - name: Build and push docker image
         uses: docker/build-push-action@v5.1.0
@@ -29,8 +29,8 @@ jobs:
           file: Dockerfile
           push: true       
           tags:             
-            ${{ env.IMAGE_NAME_LATEST }}
-            ${{ env.IMAGE_NAME_VERSION }}
+            fbiopereira/movies-api-pos-tech-fiap:${{github.run_number}}
+            fbiopereira/movies-api-pos-tech-fiap:latest
             
            
             
