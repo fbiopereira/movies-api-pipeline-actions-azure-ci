@@ -27,7 +27,7 @@ jobs:
           push: true       
           tags:             
             fbiopereira/movies-api-pos-tech-fiap:latest
-            fbiopereira/movies-api-pos-tech-fiap:${{github.sha}}
+            
            
             
            
