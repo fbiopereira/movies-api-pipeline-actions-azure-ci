@@ -7,6 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
+
 WORKDIR /src
 COPY ["movies-api-pipeline-actions-azure-ci.csproj", "."]
 RUN dotnet restore "./././movies-api-pipeline-actions-azure-ci.csproj"
@@ -19,6 +20,10 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./movies-api-pipeline-actions-azure-ci.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+ARG APP_VERSION=Development
+ENV APP_VERSION ${APP_VERSION}
+
 WORKDIR /app
+
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "movies-api-pipeline-actions-azure-ci.dll"]
