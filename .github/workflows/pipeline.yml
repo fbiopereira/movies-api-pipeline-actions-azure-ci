@@ -4,9 +4,7 @@ on:
   push:
     branches: 
       - "*/*" 
-env:
-  IMAGE_NAME: "fbiopereira/movies-api-pos-tech-fiap"
-  VERSION_TAG: ${{github.sha}}
+
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -29,7 +27,7 @@ jobs:
           push: true       
           tags:             
             fbiopereira/movies-api-pos-tech-fiap:latest
-            fbiopereira/movies-api-pos-tech-fiap:${{ env.VERSION_TAG }}
+            fbiopereira/movies-api-pos-tech-fiap:${{github.sha}}
            
             
            
