@@ -5,7 +5,7 @@ on:
     branches: 
       - "*/*" 
 env:
-  IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap
+  IMAGE_NAME: "fbiopereira/movies-api-pos-tech-fiap"
   VERSION_TAG: ${{github.sha}}
 jobs:
   CI:
