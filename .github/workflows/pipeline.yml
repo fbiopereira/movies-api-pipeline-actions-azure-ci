@@ -1,9 +1,9 @@
 name: CICD
 
 on:
-  push:
-    branches: 
-      - "*/*" 
+  release:
+    types: 
+     - created
 env:
   IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap
   IMAGE_VERSION: ${{github.sha}}
