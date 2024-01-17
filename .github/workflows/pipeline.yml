@@ -26,8 +26,9 @@ jobs:
           file: Dockerfile
           push: true       
           tags: 
-            ${{ secrets.DOCKERHUB_USERNAME }}/movies-api-pos-tech-fiap:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/movies-api-pos-tech-fiap:v1
+            ${{ format('{0}/{1}:{2}', secrets.DOCKERHUB_USERNAME, movies-api-pos-tech-fiap, latest) }}
+            # ${{ secrets.DOCKERHUB_USERNAME }}/movies-api-pos-tech-fiap:latest
+            # ${{ secrets.DOCKERHUB_USERNAME }}/movies-api-pos-tech-fiap:v1
            
             
            
