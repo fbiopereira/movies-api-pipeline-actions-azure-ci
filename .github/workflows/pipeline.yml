@@ -4,6 +4,9 @@ on:
   push:
     branches: 
       - "*/*" 
+env:
+  IMAGE_NAME_LATEST: fbiopereira/movies-api-pos-tech-fiap:latest
+  IMAGE_NAME_VERSION: 'fbiopereira/movies-api-pos-tech-fiap:${{github.sha}}'
 
 jobs:
   CI:
@@ -26,7 +29,8 @@ jobs:
           file: Dockerfile
           push: true       
           tags:             
-            fbiopereira/movies-api-pos-tech-fiap:latest
+            ${{ env.IMAGE_NAME_LATEST }}
+            ${{ env.IMAGE_NAME_VERSION }}
             
            
             
