@@ -6,7 +6,7 @@ on:
       - "*/*" 
 env:
   IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap
-  VERSION_TAG: ${{github.GITHUB_SHA}}
+  VERSION_TAG: ${{github.sha}}
 jobs:
   CI:
     runs-on: ubuntu-latest
