@@ -24,16 +24,16 @@ jobs:
         run: |
           BRANCH="${{ steps.extract_branch.outputs.branch }}"
           if [[ "$BRANCH" == "main" ]]; then
-            echo "IMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
+            echo "IIMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
           elif [[ "$BRANCH" == "develop" ]]; then
-            echo "IMAGE_VERSION=dev-${{github.sha}}" >> $GITHUB_ENV
+            echo "IIMAGE_VERSION=dev-${{github.sha}}" >> $GITHUB_ENV
           elif [[ "$BRANCH" == release/* ]]; then
-            echo "IMAGE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+            echo "IIMAGE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
           fi
 
         
       - name: EXIBE VERSION
-        run: echo ${{env.IMAGE_VERSION}} 
+        run: echo ${{env.IIMAGE_VERSION}} 
     
       - name: Code Checkout
         uses: actions/checkout@v4.1.1    
