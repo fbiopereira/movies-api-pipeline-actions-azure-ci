@@ -4,25 +4,36 @@ on:
   push: 
     branches: 
     - '**'
+    - 'main'
+    - 'develop'
     
   release:
     types: 
      - created
 env:
   IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap
-  IMAGE_VERSION: ${{github.sha}}
-  TAG_VERSION: ${{ github.event.release.tag_name }}
+  IMAGE_VERSION: ${{github.sha}}  
 
 jobs:
   CI:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Exibe Version
-        run: echo ${{env.IMAGE_VERSION}} 
+      - name: Set Version Variable
+        shell: bash
+        run: |
+          BRANCH="${{ steps.extract_branch.outputs.branch }}"
+          if [[ "$BRANCH" == "main" ]]; then
+            echo "IMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
+          elif [[ "$BRANCH" == "develop" ]]; then
+            echo "IMAGE_VERSION=dev-${{github.sha}}" >> $GITHUB_ENV
+          elif [[ "$BRANCH" == release/* ]]; then
+            echo "IMAGE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          fi
 
-      - name: Exibe TAG
-        run: echo ${{env.TAG_VERSION}} 
+        
+      - name: EXIBE VERSION
+        run: echo ${{env.IMAGE_VERSION}} 
     
       - name: Code Checkout
         uses: actions/checkout@v4.1.1    
