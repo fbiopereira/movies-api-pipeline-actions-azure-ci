@@ -2,7 +2,8 @@ name: CICD
 
 on:
   push: 
-    branches: [**]
+    branches: 
+    - '**'
     
   release:
     types: 
