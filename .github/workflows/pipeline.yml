@@ -16,8 +16,14 @@ env:
 jobs:
   CI:
     runs-on: ubuntu-latest
-  
+    
     steps:
+      - name: Exibe Version
+        run: echo ${{env.IMAGE_VERSION}} 
+
+      - name: Exibe TAG
+        run: echo ${{env.TAG_VERSION}} 
+    
       - name: Code Checkout
         uses: actions/checkout@v4.1.1    
      
