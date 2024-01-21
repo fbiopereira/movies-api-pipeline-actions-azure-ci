@@ -24,12 +24,9 @@ jobs:
         id: vars
         run: |
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
-          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
-      - name: Get SHA Short Version
-        shell: bash
-        run: | 
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV             
           SHA_SHORT=${{github.sha}}
-          SHA_SHORT=${SHA_SHORT:0:7}
+          echo "SHA_SHORT=${SHA_SHORT:0:7}" >> $GITHUB_ENV
       - name: Set Image Version
         shell: bash
         run: |
