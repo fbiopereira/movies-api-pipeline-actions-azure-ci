@@ -22,18 +22,16 @@ jobs:
       - name: Set Version Variable
         shell: bash
         run: |
-          BRANCH="${{ steps.extract_branch.outputs.branch }}"
-          if [[ "$BRANCH" == "main" ]]; then
+          if [[ "${{github.base_ref}}" == "main" || "${{github.ref}}" == "refs/heads/main" ]]; then
             echo "IIMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
-          elif [[ "$BRANCH" == "develop" ]]; then
-            echo "IIMAGE_VERSION=dev-${{github.sha}}" >> $GITHUB_ENV
-          elif [[ "$BRANCH" == release/* ]]; then
-            echo "IIMAGE_VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
           fi
 
+          if [[ "${{github.base_ref}}" == "develop" || "${{github.ref}}" == "refs/heads/develop" ]]; then
+            echo "IIMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
+          fi
         
       - name: EXIBE VERSION
-        run: echo ${{env.GITHUB_ENV}}
+        run: echo ${{env.IIMAGE_VERSION}}
     
       - name: Code Checkout
         uses: actions/checkout@v4.1.1    
