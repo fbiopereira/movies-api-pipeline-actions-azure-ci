@@ -1,26 +1,27 @@
 name: CICD
 
+# define que este workflow vai ser executados nas branches main (homologação), develop (testes/staging) e feature/ (desenvolvimento)
 on:
   push: 
     branches: 
-    - '**'
+    - 'feature/*'
     - 'main'
     - 'develop'
-    
+
+  # define que o workflow será executado quando uma release for criada (simulando produção)  
   release:
     types: 
      - created
+# declaracao de variaveis que serão utilizadas durante o workflow
 env:
-  IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap
-  #IMAGE_VERSION: $(git rev-parse --short "$GITHUB_SHA")
-  #BRANCH_NAME:  ${{ github.ref_name }}
+  IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap 
   
 jobs:
   CI:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Set Branch Name
+      - name: Set Branch Name and Version to be Used
         id: vars
         run: |
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
@@ -33,16 +34,13 @@ jobs:
           if [ "${BRANCH_NAME}" = "main" ] ; then
             echo "IMAGE_VERSION=hml-${{github.sha}}" >> $GITHUB_ENV
           elif [ "${BRANCH_NAME}" = "develop" ] ; then
-            echo "IMAGE_VERSION=dev-${{github.sha}}" >> $GITHUB_ENV
+            echo "IMAGE_VERSION=stg-${{github.sha}}" >> $GITHUB_ENV
           elif [[ "${BRANCH_NAME}" == feature/* ]] ; then
-            echo "IMAGE_VERSION=feature-$SHA_SHORT" >> $GITHUB_ENV          
+            echo "IMAGE_VERSION=dev-$SHA_SHORT" >> $GITHUB_ENV          
           elif [[ "${{ github.event_name }}" == "release" ]]; then
              TAG_NAME=${GITHUB_REF#refs/tags/}
               echo "IMAGE_VERSION=$TAG_NAME" >> $GITHUB_ENV              
-          fi
-        
-      - name: EXIBE VERSION
-        run: echo ${{env.IMAGE_VERSION}}
+          fi        
     
       - name: Code Checkout
         uses: actions/checkout@v4.1.1    
@@ -75,6 +73,11 @@ jobs:
         uses: Azure/login@v1.4.5
         with:      
           creds: ${{secrets.AZURE_CREDENTIALS}}
+          
+      - name: EXIBE VERSION
+        run: echo ${{env.IMAGE_VERSION}} 
+        
+    
       
            
 
