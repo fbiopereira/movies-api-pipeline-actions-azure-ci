@@ -25,7 +25,12 @@ jobs:
         run: |
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
           echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
-      - name: Set Version Variable
+      - name: Get SHA Short Version
+        shell: bash
+        run: | 
+          SHA_SHORT=${{github.sha}}
+          SHA_SHORT=${SHA_SHORT:0:7}
+      - name: Set Image Version
         shell: bash
         run: |
           if [ "${BRANCH_NAME}" = "main" ] ; then
@@ -33,7 +38,7 @@ jobs:
           elif [ "${BRANCH_NAME}" = "develop" ] ; then
             echo "IMAGE_VERSION=develop-${{github.sha}}" >> $GITHUB_ENV
           elif [[ "${BRANCH_NAME}" == feature/* ]] ; then
-            echo "IMAGE_VERSION=feature-${{github.sha}}" >> $GITHUB_ENV          
+            echo "IMAGE_VERSION=feature-$SHA_SHORT" >> $GITHUB_ENV          
           elif [[ "${{ github.event_name }}" == "release" ]]; then
              TAG_NAME=${GITHUB_REF#refs/tags/}
               echo "IMAGE_VERSION=$TAG_NAME" >> $GITHUB_ENV              
