@@ -20,6 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Set Branch Name
+        id: vars
+        run: |
+          BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
+          echo ::set-output name=branch::${BRANCH_NAME}
       - name: Set Version Variable
         shell: bash
         run: |
