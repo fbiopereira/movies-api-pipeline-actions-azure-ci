@@ -12,8 +12,8 @@ on:
      - created
 env:
   IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap
-  IMAGE_VERSION: $(git rev-parse --short "$GITHUB_SHA")
-  BRANCH_NAME:  ${{ github.ref_name }}
+  #IMAGE_VERSION: $(git rev-parse --short "$GITHUB_SHA")
+  #BRANCH_NAME:  ${{ github.ref_name }}
   
 jobs:
   CI:
@@ -22,15 +22,20 @@ jobs:
     steps:
       - name: Set Version Variable
         shell: bash
-        run: |         
-          if [[ startsWith("${{env.BRANCH_NAME}}", 'feature') ]] then
-            echo "IIMAGE_VERSION=feature-${{github.sha}}" >> $GITHUB_ENV          
+        run: |
+          BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
+          if [[ "${BRANCH_NAME}" == "main"]]; then
+            echo "IMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
+          elif [[ "${BRANCH_NAME}" == "develop" ]]; then
+            echo "IMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
+          elifif [[ startsWith("${BRANCH_NAME}", 'feature') ]]; then
+            echo "IMAGE_VERSION=feature-${{github.sha}}" >> $GITHUB_ENV          
           fi
 
-          echo "IIMAGE_VERSION=devmain-${{github.sha}}" >> $GITHUB_ENV
+          echo "IMAGE_VERSION=devmain-${{github.sha}}" >> $GITHUB_ENV
         
       - name: EXIBE VERSION
-        run: echo ${{env.IIMAGE_VERSION}}
+        run: echo ${{env.IMAGE_VERSION}}
     
       - name: Code Checkout
         uses: actions/checkout@v4.1.1    
