@@ -24,11 +24,11 @@ jobs:
         shell: bash
         run: |
           BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
-          if [[ "${BRANCH_NAME}" == "main"]] ; then
+          if [[ "${BRANCH_NAME}" == "main" ]] ; then
             echo "IMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
           elif [[ "${BRANCH_NAME}" == "develop" ]] ; then
-            echo "IMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
-          elifif [[ startsWith("${BRANCH_NAME}", 'feature') ]] ; then
+            echo "IMAGE_VERSION=develop-${{github.sha}}" >> $GITHUB_ENV
+          elif [[ startsWith("${BRANCH_NAME}", 'feature') ]] ; then
             echo "IMAGE_VERSION=feature-${{github.sha}}" >> $GITHUB_ENV          
           fi
 
