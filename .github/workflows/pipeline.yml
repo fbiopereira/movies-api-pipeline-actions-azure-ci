@@ -30,9 +30,7 @@ jobs:
             echo "IMAGE_VERSION=develop-${{github.sha}}" >> $GITHUB_ENV
           elif "${BRANCH_NAME}" =~ ^feature ]] ; then
             echo "IMAGE_VERSION=feature-${{github.sha}}" >> $GITHUB_ENV          
-          fi
-
-          echo "IMAGE_VERSION=devmain-${{github.sha}}" >> $GITHUB_ENV
+          fi        
         
       - name: EXIBE VERSION
         run: echo ${{env.IMAGE_VERSION}}
