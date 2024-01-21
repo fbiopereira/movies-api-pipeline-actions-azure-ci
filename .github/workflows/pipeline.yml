@@ -23,12 +23,12 @@ jobs:
       - name: Set Version Variable
         shell: bash
         run: |
-          if [[ "${{github.base_ref}}" == "main" || "${{github.ref}}" == "refs/heads/main" ]]; then
+          if [[ "${{BRANCH_NAME}}" == "main"]]; then
             echo "IIMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
-          fi
-
-          if [[ "${{github.base_ref}}" == "develop" || "${{github.ref}}" == "refs/heads/develop" ]]; then
+          elif [[ "BRANCH_NAME" == "develop" ]]; then
             echo "IIMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
+          elif [[ "BRANCH_NAME" == "feature/*" ]]; then
+            echo "IIMAGE_VERSION=feature-${{github.sha}}" >> $GITHUB_ENV          
           fi
 
           echo "IIMAGE_VERSION=devmain-${{github.sha}}" >> $GITHUB_ENV
