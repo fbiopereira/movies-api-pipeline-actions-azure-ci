@@ -33,7 +33,7 @@ jobs:
           if [ "${BRANCH_NAME}" = "main" ] ; then
             echo "IMAGE_VERSION=hml-${{github.sha}}" >> $GITHUB_ENV
           elif [ "${BRANCH_NAME}" = "develop" ] ; then
-            echo "IMAGE_VERSION=develop-${{github.sha}}" >> $GITHUB_ENV
+            echo "IMAGE_VERSION=dev-${{github.sha}}" >> $GITHUB_ENV
           elif [[ "${BRANCH_NAME}" == feature/* ]] ; then
             echo "IMAGE_VERSION=feature-$SHA_SHORT" >> $GITHUB_ENV          
           elif [[ "${{ github.event_name }}" == "release" ]]; then
