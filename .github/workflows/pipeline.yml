@@ -28,11 +28,11 @@ jobs:
       - name: Set Version Variable
         shell: bash
         run: |
-          if [ "${{ steps.vars.outputs.branch }}" = "main" ]; then
+          if [ "${BRANCH_NAME}" = "main" ] ; then
             echo "IMAGE_VERSION=hml-${{github.sha}}" >> $GITHUB_ENV
-          elif [ "${{ steps.vars.outputs.branch }}" = "develop" ]; then
+          elif [ "${BRANCH_NAME}" = "develop" ] ; then
             echo "IMAGE_VERSION=develop-${{github.sha}}" >> $GITHUB_ENV
-          elif [[ "${{ steps.vars.outputs.branch }}" == feature/* ]]; then
+          elif [[ "${BRANCH_NAME}" == feature/* ]] ; then
             echo "IMAGE_VERSION=feature-${{github.sha}}" >> $GITHUB_ENV          
           elif [[ "${{ github.event_name }}" == "release" ]]; then
              TAG_NAME=${GITHUB_REF#refs/tags/}
