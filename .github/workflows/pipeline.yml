@@ -97,7 +97,7 @@ jobs:
           fi
           
       - name: Azure Container Apps Build and Deploy
-    	  uses: Azure/container-apps-deploy-action@v2
+        uses: Azure/container-apps-deploy-action@v2
         with:
           imageToDeploy: ${{env.IMAGE_NAME}}:${{env.IMAGE_VERSION}}
           containerAppName: movies-api-fase2
