@@ -33,7 +33,7 @@ jobs:
 
         
       - name: EXIBE VERSION
-        run: echo $GITHUB_ENV
+        run: echo ${{env.GITHUB_ENV}}
     
       - name: Code Checkout
         uses: actions/checkout@v4.1.1    
