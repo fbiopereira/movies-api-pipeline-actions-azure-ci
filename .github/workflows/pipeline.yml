@@ -29,6 +29,8 @@ jobs:
           if [[ "${{github.base_ref}}" == "develop" || "${{github.ref}}" == "refs/heads/develop" ]]; then
             echo "IIMAGE_VERSION=main-${{github.sha}}" >> $GITHUB_ENV
           fi
+
+          echo "IIMAGE_VERSION=devmain-${{github.sha}}" >> $GITHUB_ENV
         
       - name: EXIBE VERSION
         run: echo ${{env.IIMAGE_VERSION}}
