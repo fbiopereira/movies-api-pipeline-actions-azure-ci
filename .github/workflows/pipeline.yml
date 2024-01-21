@@ -10,10 +10,10 @@ on:
   release:
     types: 
      - created
-#env:
+env:
   IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap
-  # IMAGE_VERSION: $(git rev-parse --short "$GITHUB_SHA")
-  branch: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+  IMAGE_VERSION: $(git rev-parse --short "$GITHUB_SHA")
+  BRANCH_NAME: ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
 
 jobs:
   CI:
