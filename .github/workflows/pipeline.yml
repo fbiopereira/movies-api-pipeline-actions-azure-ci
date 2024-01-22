@@ -1,6 +1,5 @@
 name: CICD
 
-# define que este workflow vai ser executados nas branches main (homologação), develop (testes/staging) e feature/ (desenvolvimento)
 on:
   push: 
     branches: 
@@ -8,11 +7,10 @@ on:
     - 'main'
     - 'develop'
 
-  # define que o workflow será executado quando uma release for criada (simulando produção)  
   release:
     types: 
      - created
-# declaracao de variaveis que serão utilizadas durante o workflow
+
 env:
   IMAGE_NAME: fbiopereira/movies-api-pos-tech-fiap 
   
@@ -32,9 +30,9 @@ jobs:
         shell: bash
         run: |
           if [ "${BRANCH_NAME}" = "main" ] ; then
-            echo "IMAGE_VERSION=hml-${{github.sha}}" >> $GITHUB_ENV
+            echo "IMAGE_VERSION=hml-$SHA_SHORT" >> $GITHUB_ENV
           elif [ "${BRANCH_NAME}" = "develop" ] ; then
-            echo "IMAGE_VERSION=stg-${{github.sha}}" >> $GITHUB_ENV
+            echo "IMAGE_VERSION=stg-$SHA_SHORT" >> $GITHUB_ENV
           elif [[ "${BRANCH_NAME}" == feature/* ]] ; then
             echo "IMAGE_VERSION=dev-$SHA_SHORT" >> $GITHUB_ENV          
           elif [[ "${{ github.event_name }}" == "release" ]]; then
@@ -86,9 +84,9 @@ jobs:
         shell: bash
         run: |
           if [ "${BRANCH_NAME}" = "main" ] ; then
-            echo "IMAGE_VERSION=hml-${{github.sha}}" >> $GITHUB_ENV
+            echo "IMAGE_VERSION=hml-$SHA_SHORT" >> $GITHUB_ENV
           elif [ "${BRANCH_NAME}" = "develop" ] ; then
-            echo "IMAGE_VERSION=stg-${{github.sha}}" >> $GITHUB_ENV
+            echo "IMAGE_VERSION=stg-$SHA_SHORT" >> $GITHUB_ENV
           elif [[ "${BRANCH_NAME}" == feature/* ]] ; then
             echo "IMAGE_VERSION=dev-$SHA_SHORT" >> $GITHUB_ENV          
           elif [[ "${{ github.event_name }}" == "release" ]]; then
