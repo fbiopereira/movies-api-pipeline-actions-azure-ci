@@ -100,10 +100,3 @@ jobs:
           imageToDeploy: ${{env.IMAGE_NAME}}:${{env.IMAGE_VERSION}}
           containerAppName: movies-api-fase2
           resourceGroup: rg-fiap-trabalho-fase2
-          
-    
-      
-           
-
-            
-          
