@@ -1,0 +1,22 @@
+﻿version: "3.7"
+
+services:
+    movies-api:
+        container_name: identidade
+        image: fiappostech/movies-api
+        build: 
+            context: .
+            dockerfile: ./Dockerfile
+        restart: always
+        ports:
+            - "9393:80"
+        environment:
+            aspnetcore_environment: Staging
+            APP_VERSION: docker-compose               
+        networks:
+            - "fiap-movies-api"
+   
+  
+networks:
+  fiap-movies-api:
+    driver: bridge
